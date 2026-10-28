@@ -8,17 +8,20 @@
   "doc_level": "detalhado",
   "output_folder": "_reversa_sdd",
   "forward_folder": "_reversa_forward",
-  "phase": "escavacao",
+  "phase": "concluido",
   "completed": [
     "scout",
     "archaeologist",
-    "escavacao"
-  ],
-  "pending": [
+    "escavacao",
+    "detective",
+    "architect",
     "interpretacao",
+    "writer",
     "geracao",
+    "reviewer",
     "revisao"
   ],
+  "pending": [],
   "checkpoints": {
     "scout": {
       "completed_at": "2026-10-28T19:48:00Z",
@@ -45,6 +48,67 @@
         "_reversa_sdd/flowcharts/calculator-calculateEdgeFeasibility.md",
         "_reversa_sdd/flowcharts/pythonGenerator.md",
         "_reversa_sdd/flowcharts/ui-components.md"
+      ]
+    },
+    "detective": {
+      "completed_at": "2026-10-28T20:04:00Z",
+      "files": [
+        "_reversa_sdd/domain.md",
+        "_reversa_sdd/state-machines.md",
+        "_reversa_sdd/permissions.md",
+        "_reversa_sdd/adrs/001-analise-analitica-deterministica.md",
+        "_reversa_sdd/adrs/002-suporte-gqa-kv-cache.md",
+        "_reversa_sdd/adrs/003-estimativa-vazao-bandwidth-bound.md",
+        "_reversa_sdd/adrs/004-dupla-distribuicao-web-e-cli.md",
+        "_reversa_sdd/adrs/005-unificacao-apple-silicon-vs-vram-discreta.md"
+      ]
+    },
+    "architect": {
+      "completed_at": "2026-10-28T20:06:00Z",
+      "files": [
+        "_reversa_sdd/architecture.md",
+        "_reversa_sdd/c4-context.md",
+        "_reversa_sdd/c4-containers.md",
+        "_reversa_sdd/c4-components.md",
+        "_reversa_sdd/erd-complete.md",
+        "_reversa_sdd/traceability/spec-impact-matrix.md"
+      ]
+    },
+    "writer": {
+      "completed_at": "2026-10-28T20:13:00Z",
+      "units_generated": [
+        "estimar-viabilidade-e-memoria",
+        "comparar-hardware-e-modelos",
+        "gerar-script-python-cli",
+        "gerar-receitas-de-execucao-de-engines"
+      ],
+      "files": [
+        "_reversa_sdd/estimar-viabilidade-e-memoria/requirements.md",
+        "_reversa_sdd/estimar-viabilidade-e-memoria/design.md",
+        "_reversa_sdd/estimar-viabilidade-e-memoria/tasks.md",
+        "_reversa_sdd/estimar-viabilidade-e-memoria/edge-cases.md",
+        "_reversa_sdd/comparar-hardware-e-modelos/requirements.md",
+        "_reversa_sdd/comparar-hardware-e-modelos/design.md",
+        "_reversa_sdd/comparar-hardware-e-modelos/tasks.md",
+        "_reversa_sdd/comparar-hardware-e-modelos/edge-cases.md",
+        "_reversa_sdd/gerar-script-python-cli/requirements.md",
+        "_reversa_sdd/gerar-script-python-cli/design.md",
+        "_reversa_sdd/gerar-script-python-cli/tasks.md",
+        "_reversa_sdd/gerar-script-python-cli/edge-cases.md",
+        "_reversa_sdd/gerar-receitas-de-execucao-de-engines/requirements.md",
+        "_reversa_sdd/gerar-receitas-de-execucao-de-engines/design.md",
+        "_reversa_sdd/gerar-receitas-de-execucao-de-engines/tasks.md",
+        "_reversa_sdd/gerar-receitas-de-execucao-de-engines/edge-cases.md",
+        "_reversa_sdd/user-stories/fluxos-principais.md",
+        "_reversa_sdd/traceability/code-spec-matrix.md"
+      ]
+    },
+    "reviewer": {
+      "completed_at": "2026-10-28T20:15:00Z",
+      "files": [
+        "_reversa_sdd/gaps.md",
+        "_reversa_sdd/questions.md",
+        "_reversa_sdd/confidence-report.md"
       ]
     }
   },
