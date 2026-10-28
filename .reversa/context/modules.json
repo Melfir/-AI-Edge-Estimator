@@ -1,0 +1,287 @@
+{
+  "generated_at": "2026-10-28T19:54:00Z",
+  "modules": [
+    {
+      "name": "calculator",
+      "path": "src/lib/calculator.ts",
+      "purpose": "Motor analítico de cálculo matemático e estimativa de viabilidade de modelos LLM em dispositivos de borda",
+      "primary_files": [
+        "src/lib/calculator.ts"
+      ],
+      "functions": [
+        {
+          "name": "calculateEdgeFeasibility",
+          "file": "src/lib/calculator.ts",
+          "params": [
+            "model: ModelProfile",
+            "hardware: HardwareProfile",
+            "quant: QuantProfile",
+            "params: InferenceParams"
+          ],
+          "returns": "CalculationResult",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [
+        {
+          "name": "CalculationResult",
+          "fields": [
+            { "name": "weightsMemoryGB", "type": "number", "required": true },
+            { "name": "kvCacheMemoryGB", "type": "number", "required": true },
+            { "name": "activationsMemoryGB", "type": "number", "required": true },
+            { "name": "runtimeOverheadGB", "type": "number", "required": true },
+            { "name": "totalModelRequiredGB", "type": "number", "required": true },
+            { "name": "usableVramGB", "type": "number", "required": true },
+            { "name": "usableSystemRamGB", "type": "number", "required": true },
+            { "name": "totalUsableMemoryGB", "type": "number", "required": true },
+            { "name": "status", "type": "FeasibilityStatus", "required": true },
+            { "name": "statusTitle", "type": "string", "required": true },
+            { "name": "statusBadge", "type": "string", "required": true },
+            { "name": "statusDescription", "type": "string", "required": true },
+            { "name": "totalLayers", "type": "number", "required": true },
+            { "name": "gpuLayers", "type": "number", "required": true },
+            { "name": "cpuLayers", "type": "number", "required": true },
+            { "name": "percentageInGpu", "type": "number", "required": true },
+            { "name": "theoreticalMaxTokensPerSec", "type": "number", "required": true },
+            { "name": "estimatedRealTokensPerSec", "type": "number", "required": true },
+            { "name": "prefillSpeedTokensPerSec", "type": "number", "required": true },
+            { "name": "memoryPressurePct", "type": "number", "required": true },
+            { "name": "memoryDeficitGB", "type": "number", "required": true },
+            { "name": "recommendations", "type": "string[]", "required": true },
+            { "name": "bottleneck", "type": "string", "required": true }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "Cálculo de pesos: parametersB * 10^9 * bytesPerParam / (1024^3)",
+          "location": "src/lib/calculator.ts:11",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "KV-Cache: 2 * layers * kvHeads * headDim * bytesPerElement * contextLength * batchSize",
+          "location": "src/lib/calculator.ts:23",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Apple Silicon endereça até 90% da memória unificada após desconto do OS",
+          "location": "src/lib/calculator.ts:58",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Vazão em tokens/s limitada pela largura de banda de memória dividida pelo tamanho dos pesos",
+          "location": "src/lib/calculator.ts:138",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "presets"
+      ],
+      "algorithms": [
+        "Memory Bandwidth Bound Inference Throughput Model",
+        "Layer Offload Split Algorithm",
+        "Grouped-Query Attention (GQA) KV-Cache Footprint Sizing"
+      ],
+      "complexity": "high"
+    },
+    {
+      "name": "presets",
+      "path": "src/lib/presets.ts",
+      "purpose": "Catálogo estático com especificações de hardware, arquiteturas de modelos e perfis de quantização",
+      "primary_files": [
+        "src/lib/presets.ts"
+      ],
+      "functions": [],
+      "entities": [
+        {
+          "name": "ModelProfile",
+          "fields": [
+            { "name": "id", "type": "string", "required": true },
+            { "name": "name", "type": "string", "required": true },
+            { "name": "family", "type": "string", "required": true },
+            { "name": "parametersB", "type": "number", "required": true },
+            { "name": "contextMaxTokens", "type": "number", "required": true },
+            { "name": "defaultContextTokens", "type": "number", "required": true },
+            { "name": "layers", "type": "number", "required": true },
+            { "name": "hiddenSize", "type": "number", "required": true },
+            { "name": "queryHeads", "type": "number", "required": true },
+            { "name": "kvHeads", "type": "number", "required": true },
+            { "name": "headDim", "type": "number", "required": true },
+            { "name": "vocabSize", "type": "number", "required": true },
+            { "name": "description", "type": "string", "required": true }
+          ],
+          "confidence": "confirmed"
+        },
+        {
+          "name": "HardwareProfile",
+          "fields": [
+            { "name": "id", "type": "string", "required": true },
+            { "name": "name", "type": "string", "required": true },
+            { "name": "category", "type": "string", "required": true },
+            { "name": "architecture", "type": "HardwareArchitecture", "required": true },
+            { "name": "totalRamGB", "type": "number", "required": true },
+            { "name": "vramGB", "type": "number", "required": true },
+            { "name": "isUnifiedMemory", "type": "boolean", "required": true },
+            { "name": "systemOsReserveGB", "type": "number", "required": true },
+            { "name": "memoryBandwidthGBs", "type": "number", "required": true },
+            { "name": "busType", "type": "string", "required": true },
+            { "name": "tflopsFp16", "type": "number", "required": false },
+            { "name": "description", "type": "string", "required": true }
+          ],
+          "confidence": "confirmed"
+        },
+        {
+          "name": "QuantProfile",
+          "fields": [
+            { "name": "id", "type": "QuantizationType", "required": true },
+            { "name": "name", "type": "string", "required": true },
+            { "name": "bitsPerWeight", "type": "number", "required": true },
+            { "name": "bytesPerParam", "type": "number", "required": true },
+            { "name": "qualityRetention", "type": "string", "required": true },
+            { "name": "description", "type": "string", "required": true },
+            { "name": "recommended", "type": "boolean", "required": true }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "Quantizações suportadas cobrem GGUF (K-quants), AWQ e EXL2",
+          "location": "src/lib/presets.ts:3",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [],
+      "algorithms": [],
+      "complexity": "low"
+    },
+    {
+      "name": "python-generator",
+      "path": "src/lib/pythonGenerator.ts",
+      "purpose": "Geração dinâmica de script CLI Python com suporte a auto-detecção de hardware local e benchmarks",
+      "primary_files": [
+        "src/lib/pythonGenerator.ts"
+      ],
+      "functions": [
+        {
+          "name": "generatePythonScript",
+          "file": "src/lib/pythonGenerator.ts",
+          "params": [
+            "currentModel?: ModelProfile",
+            "currentHardware?: HardwareProfile",
+            "currentQuant?: QuantProfile",
+            "currentParams?: InferenceParams"
+          ],
+          "returns": "string",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [],
+      "business_rules": [
+        {
+          "description": "O script gerado deve ser 100% autônomo sem dependências externas obrigatórias (usa apenas stdlib Python)",
+          "location": "src/lib/pythonGenerator.ts:13",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "calculator",
+        "presets"
+      ],
+      "algorithms": [
+        "Dynamic Code Synthesis",
+        "Hardware Probing Detection (nvidia-smi, sysctl, /proc/meminfo)"
+      ],
+      "complexity": "medium"
+    },
+    {
+      "name": "ui-components",
+      "path": "src/components",
+      "purpose": "Apresentação reativa visual, sliders paramétricos, dashboard de viabilidade, matriz comparativa e receitas de runners",
+      "primary_files": [
+        "src/App.tsx",
+        "src/components/Header.tsx",
+        "src/components/ModelSelector.tsx",
+        "src/components/HardwareSelector.tsx",
+        "src/components/ResultsDashboard.tsx",
+        "src/components/MatrixComparator.tsx",
+        "src/components/PythonScriptView.tsx",
+        "src/components/EngineRecipe.tsx"
+      ],
+      "functions": [
+        {
+          "name": "App",
+          "file": "src/App.tsx",
+          "params": [],
+          "returns": "JSX.Element",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [
+        {
+          "name": "InferenceParams",
+          "fields": [
+            { "name": "contextLength", "type": "number", "required": true },
+            { "name": "batchSize", "type": "number", "required": true },
+            { "name": "kvCacheQuant", "type": "KvCacheQuant", "required": true },
+            { "name": "runner", "type": "string", "required": true }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "Recálculo reativo síncrono a cada alteração de slider ou seleção de preset via useMemo",
+          "location": "src/App.tsx:45",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "calculator",
+        "presets",
+        "python-generator"
+      ],
+      "algorithms": [],
+      "complexity": "medium"
+    },
+    {
+      "name": "cli-standalone",
+      "path": "public/ai_edge_estimator.py",
+      "purpose": "Ferramenta de linha de comando autônoma em Python para execução e auditoria em ambientes sem interface gráfica",
+      "primary_files": [
+        "public/ai_edge_estimator.py"
+      ],
+      "functions": [
+        {
+          "name": "detect_hardware",
+          "file": "public/ai_edge_estimator.py",
+          "params": [],
+          "returns": "HardwareSpec",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "calculate_feasibility",
+          "file": "public/ai_edge_estimator.py",
+          "params": ["model", "hardware", "quant", "params"],
+          "returns": "FeasibilityReport",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [],
+      "business_rules": [
+        {
+          "description": "Auto-detecta VRAM de GPUs Nvidia via nvidia-smi ou Apple Silicon via sysctl hw.memsize",
+          "location": "public/ai_edge_estimator.py:120",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [],
+      "algorithms": [
+        "Hardware Probing",
+        "Feasibility Calculation CLI"
+      ],
+      "complexity": "medium"
+    }
+  ]
+}

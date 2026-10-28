@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-10-28T19:47:00Z",
+  "project_root": "/home/marcus/Dev/ai-edge-estimator",
+  "languages": [
+    { "name": "TypeScript", "extensions": [".ts", ".tsx"], "file_count": 14 },
+    { "name": "Python", "extensions": [".py"], "file_count": 1 },
+    { "name": "HTML", "extensions": [".html"], "file_count": 1 },
+    { "name": "CSS", "extensions": [".css"], "file_count": 1 },
+    { "name": "JSON", "extensions": [".json"], "file_count": 4 }
+  ],
+  "primary_language": "TypeScript",
+  "frameworks": [
+    { "name": "React", "version": "19.0.1", "source": "package.json" },
+    { "name": "Vite", "version": "8.3.0", "source": "package.json" },
+    { "name": "TailwindCSS", "version": "4.3.3", "source": "package.json" },
+    { "name": "Motion", "version": "12.23.24", "source": "package.json" },
+    { "name": "Lucide React", "version": "0.546.0", "source": "package.json" },
+    { "name": "@google/genai", "version": "2.4.0", "source": "package.json" }
+  ],
+  "package_manager": "npm",
+  "entry_points": [
+    { "path": "index.html", "type": "web_entry_html" },
+    { "path": "src/main.tsx", "type": "web_entry_dom" },
+    { "path": "src/App.tsx", "type": "app_component_root" },
+    { "path": "public/ai_edge_estimator.py", "type": "cli_standalone" }
+  ],
+  "config_files": [
+    "vite.config.ts",
+    "tsconfig.json",
+    ".env.example",
+    "package.json"
+  ],
+  "ci_cd": [],
+  "docker": null,
+  "database_hints": [],
+  "test_framework": null,
+  "test_file_count": 0,
+  "modules": [
+    "calculator",
+    "presets",
+    "python-generator",
+    "ui-components",
+    "cli-standalone"
+  ],
+  "total_files": 21,
+  "organization_suggestion": {
+    "granularity": "feature",
+    "rationale": "Aplicação frontend e CLI autocontida focada em estimativa de inferência edge de LLMs, organizada naturalmente em features funcionais.",
+    "signals": [],
+    "features": [
+      "calculator",
+      "presets-catalog",
+      "comparator",
+      "python-generator",
+      "engine-recipe"
+    ]
+  }
+}
