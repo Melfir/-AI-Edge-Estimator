@@ -1,4 +1,4 @@
-# AI Edge Estimator
+#  AI Edge Estimator
 
 Calculadora de viabilidade para execução de Large Language Models (LLMs) em máquinas locais, com foco em **Edge Computing**.
 
