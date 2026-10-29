@@ -19,7 +19,7 @@ Estimar se um modelo de IA pode ser executado localmente com base nos recursos d
 
 ## Como executar
 
-```bash
+```bash 
 git clone <url-do-repositorio>
 cd ai-edge-estimator
 python main.py
